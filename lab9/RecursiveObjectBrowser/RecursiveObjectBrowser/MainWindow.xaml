@@ -1,0 +1,142 @@
+﻿<Window x:Class="RecursiveObjectBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecursiveObjectBrowser"
+        xmlns:model="clr-namespace:RecursiveObjectBrowser.Model"
+        mc:Ignorable="d"
+        Title="Recursive Worker Browser" Height="450" Width="800">
+    <DockPanel>
+        <!-- MENU -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Application">
+                <MenuItem Header="Generate data" Click="GenerateData_Click"/>
+                <MenuItem Header="Version" Click="Version_Click"/>
+                <Separator/>
+                <MenuItem Header="Exit" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="LINQ queries">
+                <MenuItem Header="Query nr1" Click="AnalyzeProjection_Click"></MenuItem>
+                <MenuItem Header="Query nr2" Click="AnalyzeGrouping_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="XML">
+                <MenuItem Header="Save to XML" Click="SaveToXML_Click"></MenuItem>
+                <MenuItem Header="Load from XML" Click="LoadFromXML_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="XPath" Click="Xpath_Click"></MenuItem>
+            <MenuItem Header="Generate XHTML" Click="GenerateXHTML_Click" />
+            
+
+
+
+        </Menu>
+
+        <!-- CONTENT -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- TREEVIEW -->
+            <TreeView x:Name="trv" ItemsSource="{Binding Children}"
+                SelectedItemChanged="trv_SelectedItemChanged">
+                <TreeView.Resources>
+                    <ContextMenu x:Key="ItemContextMenu">
+                        <MenuItem Header="Delete" Click="DeleteMenuItem_Click"/>
+                        <MenuItem Header="Create" Click="CreateMenuItem_Click"/>
+                    </ContextMenu>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
+                    </Style>
+                </TreeView.Resources>
+                
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="x:Type model:Worker" 
+                                  ItemsSource="{Binding Employees}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+
+            <!-- DETAILED PANEL -->
+            <TabControl Grid.Column="1" Margin="10">
+                <!-- Szczegóły -->
+                <TabItem Header="Details">
+                    <ScrollViewer>
+                        <TextBlock x:Name="DetailsTextBlock" TextWrapping="Wrap"/>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- Siatka danych -->
+                <TabItem Header="Workers Table">
+
+                    <DockPanel>
+
+                        <ToolBar DockPanel.Dock="Top" Padding="5" Background="#F0F0F0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0">
+
+                                <ComboBox x:Name="PropertyComboBox"
+                                  Width="150"
+                                  Margin="0,0,10,0"
+                                  DropDownOpened="PropertyComboBox_DropDownOpened"
+                                  ToolTip="Select property to filter" />    
+
+                                <TextBox x:Name="SearchTextBox"
+                                 Width="150"
+                                 Margin="0,0,10,0"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding SalaryThreshold, UpdateSourceTrigger=PropertyChanged}"
+                                 ToolTip="Enter value to filter" />
+
+                                <Button Content="Search"
+                                    Width="80"
+                                    Height="25"
+                                    Click="SearchButton_Click"
+                                    ToolTip="Filter data based on selected property" /> 
+                            </StackPanel>
+                        </ToolBar>
+
+
+
+                        <DataGrid x:Name="WorkersDataGrid"
+                          ItemsSource="{Binding EmployeesCollectionView}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="True"
+                          CanUserDeleteRows="True"
+                          IsReadOnly="False"
+                          Margin="5"
+                          SelectionUnit="FullRow"
+                          SelectionMode="Single"
+                          InitializingNewItem="WorkersDataGrid_InitializingNewItem"
+                          RowEditEnding="WorkersDataGrid_RowEditEnding"
+                          PreviewKeyDown="WorkersDataGrid_PreviewKeyDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" />
+                                <DataGridTextColumn Header="Position" Binding="{Binding Position}" />
+                                <DataGridTextColumn Header="Experience" Binding="{Binding Experience}" />
+                                <DataGridTextColumn Header="Salary" Binding="{Binding Salary}" />
+                                <DataGridTextColumn Header="Subordinates" Binding="{Binding Employees.Count}" />
+                            </DataGrid.Columns>
+                            <DataGrid.Resources>
+                                <ContextMenu x:Key="RowContextMenu">
+                                    <MenuItem Header="Delete" Click="DeleteWorker_Click"/>
+                                    <MenuItem Header="Add Worker" Click="CreateMenuItem_Click"/>
+                                </ContextMenu>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
+                                </Style>
+                            </DataGrid.Resources>
+
+                        </DataGrid>
+
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+
+
+        </Grid>
+    </DockPanel>
+</Window>
