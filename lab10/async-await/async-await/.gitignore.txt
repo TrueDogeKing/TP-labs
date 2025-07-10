@@ -1,0 +1,22 @@
+﻿# Pliki tymczasowe Visual Studio
+.vs/
+*.user
+*.suo
+
+# Pliki binarne kompilacji
+bin/
+obj/
+
+# Inne pliki tymczasowe
+*.log
+*.cache
+*.db
+*.pdb
+*.tmp
+*.vsidx
+*.sdf
+*.ipch
+
+# Pliki systemowe
+Thumbs.db
+Desktop.ini
