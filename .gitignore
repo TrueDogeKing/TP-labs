@@ -22,3 +22,120 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+## Ignore Visual Studio temporary files, build results, and
+## user-specific files.
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Code workspace
+.vscode/
+.vscode/*
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+# Uncomment if using package reference and want to ignore packages folder
+# **/packages/*
+
+# Entity Framework
+*.dbmdl
+*.jfm
+
+# Azure
+*.azurepubxml
+*.publishsettings
+PublishProfiles/
+
+# IIS Express
+*.vspscc
+*.vssscc
+.vs/
+
+# Others
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# DotCover
+*.dotCover
+
+# StyleCop
+StyleCopReport.xml
+
+# TFS
+$tf/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Local history for Visual Studio
+.localhistory/
+
+# Backup & Crash reports
+*.bak
+*.orig
+*.tmp
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS for Mac
+.vscode/
+*.pidb
+*.userprefs
+*.sln.ide
+
+# Dotnet watch
+**/obj/**/generated/
+
